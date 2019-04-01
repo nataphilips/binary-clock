@@ -98,38 +98,44 @@ const AppBody = styled(Flex)`
   text-align: center;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
+  background-color: #27272C;
+  justify-content: center;
+  align-items: center;
 `
 const ClockContainer = styled(Flex)`
-background-color: grey;
-width: 100%;
-height: 100%;
-padding: 200px;
+  width: 50vh;
+  height: 15vh;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid black;
 `
 const Dot = styled(Flex)`
   height: 15px;
   width: 15px;
-  margin: 5px;
+  margin: 2px;
+  background-color:#525252;
   border-radius: 50px;
-  border: 5px solid black;
   flex-direction: row;
   ${props => props.on && `
-    background-color: green;
+    background-color: #48d8b8;
+    height: 17px;
+    width: 17px;
   `}
 `
 const Number = styled(Flex)`
-  height: 185px;
-  width: 200px;
-  margin: 15px;
+  height: 100%;
+  width: 40%;
   border: 5px solid black;
+  justify-content: center;
+  align-items: center;
 `
 const Digit = styled(Flex)`
-  height: 160px;
-  width: 80px;
-  margin: 5px;
+  height: 100%;
+  width: 20%;
   border: 5px solid black;
   flex-wrap: wrap;
   flex-direction: row;
-  padding: 2px 10px;
   justify-content: center;
 `
 
