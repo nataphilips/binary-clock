@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import styled from 'styled-components';
 
 class App extends Component {
@@ -15,6 +14,12 @@ class App extends Component {
     setInterval(() => this.getTime(), 1000);
   }
 
+  pad(n, size) {
+    var s = String(n);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+  }
+
   getTime () {
     let date = new Date();
     let binaryTimeArr = date
@@ -24,21 +29,11 @@ class App extends Component {
       .join("")
       .split("")
       .map(x => parseInt(x, 10)
-        .toString(2)
-      );
-    for (let i = 0; i < binaryTimeArr.length; i++) {
-      if (binaryTimeArr[i].length === 1) {
-        binaryTimeArr[i] = "000" + binaryTimeArr[i];
-      }
-      if (binaryTimeArr[i].length === 2) {
-        binaryTimeArr[i] = "00" + binaryTimeArr[i];
-      }
-      if (binaryTimeArr[i].length === 3) {
-        binaryTimeArr[i] = "0" + binaryTimeArr[i];
-      }
-    }
-    this.setState({ dateArr: binaryTimeArr });
+        .toString(2))
+      .map(x => this.pad(x, 4));
+    this.setState({dateArr: binaryTimeArr})
   }
+
 
   render() {
     return (
@@ -104,11 +99,10 @@ const AppBody = styled(Flex)`
   align-items: center;
 `
 const ClockContainer = styled(Flex)`
-  width: 50vh;
-  height: 15vh;
+  width: 40vh;
+  height: 13vh;
   justify-content: center;
   align-items: center;
-  border: 5px solid black;
 `
 const Dot = styled(Flex)`
   height: 15px;
@@ -121,19 +115,19 @@ const Dot = styled(Flex)`
     background-color: #48d8b8;
     height: 17px;
     width: 17px;
+    margin: 1px;
+    transition: 0.3s ease-in;
   `}
 `
 const Number = styled(Flex)`
   height: 100%;
-  width: 40%;
-  border: 5px solid black;
+  width: 45%;
   justify-content: center;
   align-items: center;
 `
 const Digit = styled(Flex)`
   height: 100%;
-  width: 20%;
-  border: 5px solid black;
+  width: 25%;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
