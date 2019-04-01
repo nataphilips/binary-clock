@@ -7,82 +7,83 @@ class App extends Component {
     super(props);
 
     this.state = {
-      mode: "hard",
+      dateArr: [[],[],[],[],[],[]]
     }
   }
 
+  componentDidMount() {
+    setInterval(() => this.getTime(), 1000);
+  }
+
+  getTime () {
+    let date = new Date();
+    let binaryTimeArr = date
+      .toTimeString()
+      .substring(0, 8)
+      .split(":")
+      .join("")
+      .split("")
+      .map(x => parseInt(x, 10)
+        .toString(2)
+      );
+    for (let i = 0; i < binaryTimeArr.length; i++) {
+      if (binaryTimeArr[i].length === 1) {
+        binaryTimeArr[i] = "000" + binaryTimeArr[i];
+      }
+      if (binaryTimeArr[i].length === 2) {
+        binaryTimeArr[i] = "00" + binaryTimeArr[i];
+      }
+      if (binaryTimeArr[i].length === 3) {
+        binaryTimeArr[i] = "0" + binaryTimeArr[i];
+      }
+    }
+    this.setState({ dateArr: binaryTimeArr });
+  }
 
   render() {
     return (
       <AppBody>
-        <header>
-          Binary Clock
-        </header>
         <ClockContainer>
           <Number>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[0][0] === '1'} />
+              <Dot on={this.state.dateArr[0][1] === '1'} />
+              <Dot on={this.state.dateArr[0][2] === '1'} />
+              <Dot on={this.state.dateArr[0][3] === '1'} />
             </Digit>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[1][0] === '1'} />
+              <Dot on={this.state.dateArr[1][1] === '1'} />
+              <Dot on={this.state.dateArr[1][2] === '1'} />
+              <Dot on={this.state.dateArr[1][3] === '1'} />
             </Digit>
           </Number>
           <Number>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[2][0] === '1'} />
+              <Dot on={this.state.dateArr[2][1] === '1'} />
+              <Dot on={this.state.dateArr[2][2] === '1'} />
+              <Dot on={this.state.dateArr[2][3] === '1'} />
             </Digit>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[3][0] === '1'} />
+              <Dot on={this.state.dateArr[3][1] === '1'} />
+              <Dot on={this.state.dateArr[3][2] === '1'} />
+              <Dot on={this.state.dateArr[3][3] === '1'} />
             </Digit>
           </Number>
           <Number>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[4][0] === '1'} />
+              <Dot on={this.state.dateArr[4][1] === '1'} />
+              <Dot on={this.state.dateArr[4][2] === '1'} />
+              <Dot on={this.state.dateArr[4][3] === '1'} />
             </Digit>
             <Digit>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
-              <Dot>
-              </Dot>
+              <Dot on={this.state.dateArr[5][0] === '1'} />
+              <Dot on={this.state.dateArr[5][1] === '1'} />
+              <Dot on={this.state.dateArr[5][2] === '1'} />
+              <Dot on={this.state.dateArr[5][3] === '1'} />
             </Digit>
           </Number>
         </ClockContainer>
@@ -111,6 +112,9 @@ const Dot = styled(Flex)`
   border-radius: 50px;
   border: 5px solid black;
   flex-direction: row;
+  ${props => props.on && `
+    background-color: green;
+  `}
 `
 const Number = styled(Flex)`
   height: 185px;
